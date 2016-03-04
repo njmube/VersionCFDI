@@ -1,4 +1,4 @@
-package mx.trillas.version.versionDAO;
+package mx.trillas.version.persistence.dao;
 
 public interface VersionDAO {
 	public boolean checkExpiration();  // comprueba caducidad

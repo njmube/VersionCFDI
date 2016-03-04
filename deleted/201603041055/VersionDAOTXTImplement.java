@@ -1,6 +1,6 @@
 package mx.trillas.version.persistence.implement;
 
-import mx.trillas.version.versionDAO.VersionDAO;
+import mx.trillas.version.persistence.dao.VersionDAO;
 
 public class VersionDAOTXTImplement implements VersionDAO{
 
