@@ -1,8 +1,5 @@
 package mx.trillas.versioncfdi.versionDAO;
 
-import java.io.File;
-import java.io.IOException;
-
 import mx.trillas.versioncfdi.persistence.pojo.Archivoderevision;
 
 public interface ArchivoderevisionDAO {
