@@ -1,4 +1,4 @@
-package mx.trillas.version.persistence.pojo;
+package mx.trillas.versioncfdi.persistence.pojo;
 
 import java.util.Date;
 

@@ -1,4 +1,4 @@
-package mx.trillas.version.versionDAO;
+package mx.trillas.versioncfdi.versionDAO;
 
 
 public interface ArchivoderevisionDAO {
