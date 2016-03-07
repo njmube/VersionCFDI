@@ -11,7 +11,7 @@ import mx.trillas.versioncfdi.versionDAO.ArchivoderevisionDAO;
 public class Principal {
 
 	public static void main(String args[]) {
-
+// esto de git es una locura!
 		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 		ArchivoderevisionDAO revisiondao = new ArchivoderevisionDAOFileimpl();
 	

@@ -15,7 +15,6 @@ import mx.trillas.versioncfdi.persistence.pojo.Archivoderevision;
 import mx.trillas.versioncfdi.versionDAO.ArchivoderevisionDAO;
 
 public class ArchivoderevisionDAOFileimpl implements ArchivoderevisionDAO {
-<<<<<<< HEAD
 
 	private String path = "revision.properties";
 
