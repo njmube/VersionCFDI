@@ -1,19 +1,21 @@
 package mx.trillas.versioncfdi;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Properties;
 
 import mx.trillas.versioncfdi.persistence.pojo.Archivoderevision;
 import mx.trillas.versioncfdi.versionDAO.ArchivoderevisionDAO;
 
 public class ArchivoderevisionDAOFileimpl implements ArchivoderevisionDAO {
+<<<<<<< HEAD
 
 	private String path = "revision.properties";
 
@@ -41,11 +43,39 @@ public class ArchivoderevisionDAOFileimpl implements ArchivoderevisionDAO {
 			revision.setNumeroderevision(Integer.parseInt(numerorevision));
 
 		} catch (ParseException | IOException e) {
+=======
+	public static Path PATHREVISION = Paths.get("revision.properties");
+
+	public Archivoderevision get() throws ParseException, IOException {
+
+		Archivoderevision revision;
+		Properties properties = new Properties();
+		InputStream is = null;
+
+		long fecharevision;
+		long tiempovalidez;
+		int numerorevision;
+
+		try {
+			is = new FileInputStream(
+					ArchivoderevisionDAOFileimpl.PATHREVISION.toFile());
+			properties.load(is);
+
+			fecharevision = new Long(properties.getProperty("fecharevision")).longValue();
+			tiempovalidez = new Long(properties.getProperty("tiempovalidez")).longValue();
+			numerorevision = new Integer(properties.getProperty("numerorevision")).intValue();
+			revision = new Archivoderevision();
+			revision.setFechadeverificacion(new Date(fecharevision));
+			revision.setTiempovalidez(tiempovalidez);
+			revision.setNumeroderevision(numerorevision);
+
+		} catch (IOException e) {
+>>>>>>> 13e0ca7ca5185363670bbf8a37dc1b37fc934645
 			throw e;
 		} finally {
-			if (input != null) {
+			if (is != null) {
 				try {
-					input.close();
+					is.close();
 				} catch (IOException e) {
 					throw e;
 				}
@@ -62,12 +92,22 @@ public class ArchivoderevisionDAOFileimpl implements ArchivoderevisionDAO {
 
 		try {
 
-			output = new FileOutputStream("revision.properties");
+			output = new FileOutputStream(
+					ArchivoderevisionDAOFileimpl.PATHREVISION.toFile());
 
 			// set the properties value
+<<<<<<< HEAD
 			properties.setProperty("fecharevision", revision.getFechadeverificacion().toString());
 			properties.setProperty("tiempovalidez", revision.getTiempovalidez() + "");
 			properties.setProperty("numerorevision", revision.getNumeroderevision() + "");
+=======
+			properties.setProperty("fecharevision", revision
+					.getFechadeverificacion().toString());
+			properties.setProperty("tiempovalidez", revision.getTiempovalidez()
+					+ "");
+			properties.setProperty("numerorevision",
+					revision.getNumeroderevision() + "");
+>>>>>>> 13e0ca7ca5185363670bbf8a37dc1b37fc934645
 
 			// save properties to project root folder
 			properties.store(output, null);
