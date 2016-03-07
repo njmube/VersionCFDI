@@ -15,34 +15,6 @@ import mx.trillas.versioncfdi.persistence.pojo.Archivoderevision;
 import mx.trillas.versioncfdi.versionDAO.ArchivoderevisionDAO;
 
 public class ArchivoderevisionDAOFileimpl implements ArchivoderevisionDAO {
-
-	private String path = "revision.properties";
-
-	public Archivoderevision get() throws ParseException, IOException {
-
-		Archivoderevision revision = new Archivoderevision();
-		Properties properties = new Properties();
-		InputStream input = null;
-
-		String fecharevision = null;
-		String tiempovalidez = null;
-		String numerorevision = null;
-		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-
-		try {
-			input = new FileInputStream(path);
-			properties.load(input);
-
-			fecharevision = properties.getProperty("fecharevision");
-			tiempovalidez = properties.getProperty("tiempovalidez");
-			numerorevision = properties.getProperty("numerorevision");
-
-			revision.setFechadeverificacion(formatter.parse(fecharevision));
-			revision.setTiempovalidez(Long.parseLong(tiempovalidez));
-			revision.setNumeroderevision(Integer.parseInt(numerorevision));
-
-		} catch (ParseException | IOException e) {
-=======
 	public static Path PATHREVISION = Paths.get("revision.properties");
 
 	public Archivoderevision get() throws ParseException, IOException {
@@ -69,7 +41,6 @@ public class ArchivoderevisionDAOFileimpl implements ArchivoderevisionDAO {
 			revision.setNumeroderevision(numerorevision);
 
 		} catch (IOException e) {
->>>>>>> 13e0ca7ca5185363670bbf8a37dc1b37fc934645
 			throw e;
 		} finally {
 			if (is != null) {
@@ -95,18 +66,9 @@ public class ArchivoderevisionDAOFileimpl implements ArchivoderevisionDAO {
 					ArchivoderevisionDAOFileimpl.PATHREVISION.toFile());
 
 			// set the properties value
-<<<<<<< HEAD
 			properties.setProperty("fecharevision", revision.getFechadeverificacion().toString());
 			properties.setProperty("tiempovalidez", revision.getTiempovalidez() + "");
 			properties.setProperty("numerorevision", revision.getNumeroderevision() + "");
-=======
-			properties.setProperty("fecharevision", revision
-					.getFechadeverificacion().toString());
-			properties.setProperty("tiempovalidez", revision.getTiempovalidez()
-					+ "");
-			properties.setProperty("numerorevision",
-					revision.getNumeroderevision() + "");
->>>>>>> 13e0ca7ca5185363670bbf8a37dc1b37fc934645
 
 			// save properties to project root folder
 			properties.store(output, null);
