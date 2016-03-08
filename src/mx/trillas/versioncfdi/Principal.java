@@ -1,28 +1,18 @@
 package mx.trillas.versioncfdi;
 
 import java.io.File;
-import java.util.Calendar;
+import java.io.IOException;
 
-import mx.trillas.versioncfdi.persistence.impl.ArchivoderevisionDAOFileimpl;
-import mx.trillas.versioncfdi.persistence.pojo.Archivoderevision;
-import mx.trillas.versioncfdi.versionDAO.ArchivoderevisionDAO;
+import mx.trillas.versioncfdi.util.Util;
 
 public class Principal {
-	private static ArchivoderevisionDAO revisionDAO = new ArchivoderevisionDAOFileimpl();
-	private static Archivoderevision revision = null;
-
-	static {
-		try {
-			revision = revisionDAO.get();
-		} catch (Exception e) {
-			// logger.error(e.getMessage())
-		}
-	}
 	
 	public Principal(){
 		String path = "revision.properties";
 		File file = new File(path);
-
+		String siteContent = null;
+		String versionFromSite = null;
+		
 		if (!file.exists()) {
 			// logger.error()
 			// throw Exception("No se pudo encontrar el archivo");
@@ -36,34 +26,44 @@ public class Principal {
 //			
 //		}
 		
-		if(fileIsValid()){
-			
-		}else{
-			
+		System.out.println(Util.getSiteContent());
+		
+		try {
+			Util.getVersionFromSite();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
+		if (Util.timeIsValid()) {
+			System.out.println("El archivo es valido");
+		} else {
+			System.out.println("El archivo es invalido");
+		}
+		
+		if (Util.getSiteContent() != null) {
+			siteContent = Util.getSiteContent();
+			System.out.println(siteContent);
+			
+			try {
+				versionFromSite = Util.getVersionFromSite();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if (versionFromSite != null){
+				
+			} else {
+//				throw new Exception("No encontré la versión del programa");
+			}
+		} else {
+//			throw new Exception("Ocurrio un problema al conseguir la version del programa");
+		}
+		
+		System.exit(0);
 	}
 
 	public static void main(String args[]) {
 		new Principal();
-	}
-
-	private static boolean fileIsValid() {
-		//fileIsValid significa que la última fecha de revision bla bla bla bla bla
-		Calendar ultimoMomentoDeValidez = Calendar.getInstance();
-		ultimoMomentoDeValidez.setTime(revision.getFechadeverificacion());
-		int tiempoDeValidezEnEntero = (int) revision.getTiempovalidez();
-		ultimoMomentoDeValidez.add(Calendar.SECOND, tiempoDeValidezEnEntero);
-
-		Calendar fechaHoy = Calendar.getInstance();
-
-		System.out.println(ultimoMomentoDeValidez + " " + fechaHoy);
-		if (ultimoMomentoDeValidez.after(fechaHoy)) {
-			System.out.println("El archivo es valido");
-			return true;
-		} else {
-			System.out.println("El archivo es invalido");
-			return false;
-		}
 	}
 }

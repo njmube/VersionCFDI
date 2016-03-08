@@ -27,8 +27,7 @@ public class ArchivoderevisionDAOFileimpl implements ArchivoderevisionDAO {
 		int numerorevision;
 
 		try {
-			is = new FileInputStream(
-					ArchivoderevisionDAOFileimpl.PATHREVISION.toFile());
+			is = new FileInputStream(ArchivoderevisionDAOFileimpl.PATHREVISION.toFile());
 			properties.load(is);
 
 			fecharevision = new Long(properties.getProperty("fecharevision")).longValue();
@@ -61,8 +60,7 @@ public class ArchivoderevisionDAOFileimpl implements ArchivoderevisionDAO {
 
 		try {
 
-			output = new FileOutputStream(
-					ArchivoderevisionDAOFileimpl.PATHREVISION.toFile());
+			output = new FileOutputStream(ArchivoderevisionDAOFileimpl.PATHREVISION.toFile());
 
 			// set the properties value
 			properties.setProperty("fecharevision", revision.getFechadeverificacion().toString());
