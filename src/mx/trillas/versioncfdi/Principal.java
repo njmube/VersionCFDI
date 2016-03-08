@@ -11,7 +11,7 @@ import mx.trillas.versioncfdi.versionDAO.ArchivoderevisionDAO;
 public class Principal {
 
 	public static void main(String args[]) {
-		ArchivoderevisionDAO revisiondao = new ArchivoderevisionDAOFileimpl();
+		ArchivoderevisionDAO revisiondao = new ArchivoderevisionDAOFileimpl();  // cuenta omo modificacion
 	
 		Long caducidad = null;
 		Long fechaVerificacion = null;
