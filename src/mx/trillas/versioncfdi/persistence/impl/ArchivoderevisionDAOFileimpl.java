@@ -1,4 +1,4 @@
-package mx.trillas.versioncfdi;
+package mx.trillas.versioncfdi.persistence.impl;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
