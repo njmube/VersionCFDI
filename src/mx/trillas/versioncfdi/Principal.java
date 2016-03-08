@@ -6,11 +6,12 @@ import java.util.Date;
 
 import mx.trillas.versioncfdi.persistence.impl.ArchivoderevisionDAOFileimpl;
 import mx.trillas.versioncfdi.persistence.pojo.Archivoderevision;
+import mx.trillas.versioncfdi.versionDAO.ArchivoderevisionDAO;
 
 public class Principal {
 
 	public static void main(String args[]) {
-		ArchivoderevisionDAOFileimpl revisiondao = new ArchivoderevisionDAOFileimpl();
+		ArchivoderevisionDAO revisiondao = new ArchivoderevisionDAOFileimpl();  // cuenta omo modificacion
 	
 		Long caducidad = null;
 		Long fechaVerificacion = null;
