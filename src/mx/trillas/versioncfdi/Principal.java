@@ -28,13 +28,6 @@ public class Principal {
 		
 		System.out.println(Util.getSiteContent());
 		
-		try {
-			Util.getVersionFromSite();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
 		if (Util.timeIsValid()) {
 			System.out.println("El archivo es valido");
 		} else {
