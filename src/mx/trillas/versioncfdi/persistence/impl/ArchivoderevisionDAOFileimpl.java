@@ -7,7 +7,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.text.ParseException;
 import java.util.Date;
 import java.util.Properties;
 
@@ -17,7 +16,7 @@ import mx.trillas.versioncfdi.versionDAO.ArchivoderevisionDAO;
 public class ArchivoderevisionDAOFileimpl implements ArchivoderevisionDAO {
 	public static Path PATHREVISION = Paths.get("revision.properties");
 
-	public Archivoderevision get() throws ParseException, IOException {
+	public Archivoderevision get() throws Exception {
 
 		Archivoderevision revision;
 		Properties properties = new Properties();
