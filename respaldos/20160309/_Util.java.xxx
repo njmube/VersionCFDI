@@ -26,7 +26,7 @@ import mx.trillas.versioncfdi.persistence.impl.ArchivoderevisionDAOFileimpl;
 import mx.trillas.versioncfdi.persistence.pojo.Archivoderevision;
 import mx.trillas.versioncfdi.versionDAO.ArchivoderevisionDAO;
 
-public class Util {
+public class _Util {
 
 	private static ArchivoderevisionDAO revisionDAO = new ArchivoderevisionDAOFileimpl();
 	private static Archivoderevision revision = null;

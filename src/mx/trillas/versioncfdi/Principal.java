@@ -2,8 +2,6 @@ package mx.trillas.versioncfdi;
 
 import java.io.File;
 
-import org.w3c.dom.Document;
-
 import mx.trillas.versioncfdi.util.Util;
 
 public class Principal {
