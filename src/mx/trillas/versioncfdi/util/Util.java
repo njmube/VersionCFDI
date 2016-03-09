@@ -34,7 +34,7 @@ public class Util {
 	private static String username = "cctviga";
 	private static String password = "K4l4m4#dO";
 	public static Path credential = Paths.get("credencial.properties");
-	
+
 	static {
 		try {
 			revision = revisionDAO.get();
@@ -42,8 +42,8 @@ public class Util {
 			// logger.error(e.getMessage())
 		}
 	}
-	
-	public static String getCredencial() throws IOException{
+
+	public static String getCredencial() throws IOException {
 
 		Properties properties = new Properties();
 		InputStream is = null;
@@ -51,7 +51,8 @@ public class Util {
 		String credenciales = "";
 
 		try {
-			is = new FileInputStream(ArchivoderevisionDAOFileimpl.PATHREVISION.toFile());
+			is = new FileInputStream(
+					ArchivoderevisionDAOFileimpl.PATHREVISION.toFile());
 			properties.load(is);
 
 			credenciales += properties.getProperty("webPage");
@@ -70,7 +71,7 @@ public class Util {
 			}
 		}
 		return credenciales;
-	}	
+	}
 
 	// Consigue la version desde el contenido html del sitio
 	public static String getVersionFromSite() throws IOException {
@@ -103,7 +104,8 @@ public class Util {
 		String title = null;
 
 		try {
-			doc = Jsoup.connect(webPage).header("Authorization", "Basic " + base64login).get();
+			doc = Jsoup.connect(webPage)
+					.header("Authorization", "Basic " + base64login).get();
 			title = doc.title();
 		} catch (IOException e) {
 			throw e;
@@ -135,17 +137,26 @@ public class Util {
 
 	public static void saveSiteContent() {
 
+		String authString = username + ":" + password;
+		byte[] authEncBytes = Base64.encodeBase64(authString.getBytes());
+		String authStringEnc = new String(authEncBytes);
+
+		URL url;
+		URLConnection urlConnection = null;
 		try {
+			url = new URL(webPage);
+			urlConnection = url.openConnection();
 
-			String authString = username + ":" + password;
-			byte[] authEncBytes = Base64.encodeBase64(authString.getBytes());
-			String authStringEnc = new String(authEncBytes);
-
-			URL url = new URL(webPage);
-			URLConnection urlConnection = url.openConnection();
-
-			urlConnection.setRequestProperty("Authorization", "Basic " + authStringEnc);
-
+			urlConnection.setRequestProperty("Authorization", "Basic "
+					+ authStringEnc);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		BufferedWriter bw = null;
+		BufferedReader br = null;
+		InputStreamReader isr = null;
+		try {
 			String inputLine;
 			String fileName = "test.html";
 			File file = new File(fileName);
@@ -156,20 +167,28 @@ public class Util {
 
 			// use FileWriter to write file
 			FileWriter fw = new FileWriter(file.getAbsoluteFile());
-			BufferedWriter bw = new BufferedWriter(fw);
-			InputStreamReader isr = new InputStreamReader(urlConnection.getInputStream());
-			BufferedReader br = new BufferedReader(isr);
+			bw = new BufferedWriter(fw);
+			isr = new InputStreamReader(urlConnection.getInputStream());
+			br = new BufferedReader(isr);
 
 			while ((inputLine = br.readLine()) != null) {
 				bw.write(inputLine);
 			}
-			bw.close();
-			br.close();
-
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			try {
+				if (br != null)
+					br.close();
+				if (isr != null)
+					isr.close();
+				if (bw != null)
+					bw.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 	}
@@ -186,7 +205,8 @@ public class Util {
 			URL url = new URL(webPage);
 			URLConnection urlConnection = url.openConnection();
 
-			urlConnection.setRequestProperty("Authorization", "Basic " + authStringEnc);
+			urlConnection.setRequestProperty("Authorization", "Basic "
+					+ authStringEnc);
 			InputStream is = urlConnection.getInputStream();
 			InputStreamReader isr = new InputStreamReader(is);
 
