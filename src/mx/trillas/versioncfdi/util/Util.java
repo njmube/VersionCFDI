@@ -17,6 +17,7 @@ import org.jsoup.nodes.Document;
 import mx.trillas.versioncfdi.persistence.impl.ArchivoderevisionDAOFileimpl;
 import mx.trillas.versioncfdi.persistence.pojo.Archivoderevision;
 import mx.trillas.versioncfdi.versionDAO.ArchivoderevisionDAO;
+import org.apache.log4j.Logger;
 
 public class Util {
 
@@ -27,11 +28,17 @@ public class Util {
 	private static String password = "K4l4m4#dO";
 	public static Path credential = Paths.get("credencial.properties");
 
+	private static final String CONTAIN_NUMBER = "[A-Za-z]*_[A-Za-z]* - [A-Za-z]* [0-9]*: \\/";
+	private static final String NUMBER = "[0-9]+";
+	private static final String COMMENTS_PATTERN = "#[A-Za-z]+ ([A-Za-zÒ·ÈÌÛ˙¡…Õ”⁄]+\\s)*";
+	private static final String KEYVALUE_PATTERN = "[A-Za-z]*=[0-9]+";
+	private static Logger log =  Logger.getLogger(Util.class);
+	
 	static {
 		try {
 			revision = revisionDAO.get();
 		} catch (Exception e) {
-			// logger.error(e.getMessage())
+			log.error(e.getMessage());
 		}
 	}
 
@@ -63,26 +70,25 @@ public class Util {
 		}
 		return credenciales;
 	}
-	
+
 	public static String getNumberVersion() throws IOException {
-		String numberVersion;
-		
+		String numberVersion = null;
+
 		try {
 			numberVersion = getTitleHtml();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			throw e;
 		}
-		
-		if (isNumber(numberVersion)){
-			System.out.println("Cadena numerica valida");
+		log.info("Cadena: " + numberVersion);
+		if (containNumberExpression(numberVersion.trim()) == true) {
+			log.info("Cadena numerica valida");
+			return getNumber(numberVersion);
 		} else {
-			System.out.println("Cadena numerica NO valida");
+			log.error("Cadena numerica NO valida");
+			return null;
 		}
-		
-		return numberVersion;
 	}
-	
+
 	// Consigue el contenido de la etiqueta title html
 	public static String getTitleHtml() throws IOException {
 
@@ -100,12 +106,69 @@ public class Util {
 		return title;
 	}
 
+	public static boolean isCommentsStruct(String line) {
+		Pattern pattern;
+		Matcher matcher;
+
+		pattern = Pattern.compile(COMMENTS_PATTERN);
+		matcher = pattern.matcher(line);
+		return matcher.matches();
+	}
+	
+	public static boolean isKeyValueStruct(String line) {
+		Pattern pattern;
+		Matcher matcher;
+
+		pattern = Pattern.compile(KEYVALUE_PATTERN);
+		matcher = pattern.matcher(line);
+		return matcher.matches();
+	}
+	
+	/**
+	 * Validate string with regular expression
+	 * 
+	 * @param stringToValidate
+	 *            number for validation
+	 * @return true if string contains number expresion
+	 */
+	public static boolean containNumberExpression(String stringToValidate) {
+		Pattern pattern;
+		Matcher matcher;
+
+		pattern = Pattern.compile(CONTAIN_NUMBER);
+		matcher = pattern.matcher(stringToValidate);
+		return matcher.find();
+	}
+	
+	/**
+	 * Get number with regular expression
+	 * 
+	 * @param expression
+	 * @return string number from expresion
+	*/
+	public static String getNumber(String expression) throws IllegalStateException {
+		Pattern pattern;
+		Matcher matcher;
+
+		pattern = Pattern.compile(NUMBER);
+		matcher = pattern.matcher(expression);
+		try {
+			if (matcher.find() == true) {
+				System.out.println(matcher.group(0));
+				return matcher.group(0);
+			}
+		} catch (IllegalStateException e) {
+			throw e;
+		}
+		return null;
+	}
+
 	public static boolean isNumber(String line) {
 
-		Pattern rfc_Pattern = Pattern.compile("[0-9]*");
-		Matcher rfc_matcher = rfc_Pattern.matcher(line);
+		Pattern pattern = Pattern.compile("[0-9]*");
+		Matcher matcher = pattern.matcher(line);
 
-		if (rfc_matcher.matches())
+		if (matcher.matches())
 			return true;
 
 		return false;
@@ -121,7 +184,8 @@ public class Util {
 
 		Calendar fechaHoy = Calendar.getInstance();
 
-		// System.out.println(ultimoMomentoDeValidez + " " + fechaHoy);
+		log.info(ultimoMomentoDeValidez + " " + fechaHoy);
+		
 		if (ultimoMomentoDeValidez.after(fechaHoy)) {
 			return true;
 		} else {
