@@ -30,7 +30,7 @@ public class Util {
 
 	private static final String CONTAIN_NUMBER = "[A-Za-z]*_[A-Za-z]* - [A-Za-z]* [0-9]*: \\/";
 	private static final String NUMBER = "[0-9]+";
-	private static final String COMMENTS_PATTERN = "#[A-Za-z]+ ([A-Za-zñáéíóúÁÉÍÓÚ]+\\s)*";
+	private static final String COMMENTS_PATTERN = "#[A-Za-z]+ ([A-Za-zï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½]+\\s)*";
 	private static final String KEYVALUE_PATTERN = "[A-Za-z]*=[0-9]+";
 	private static Logger log =  Logger.getLogger(Util.class);
 	
@@ -154,7 +154,7 @@ public class Util {
 		matcher = pattern.matcher(expression);
 		try {
 			if (matcher.find() == true) {
-				System.out.println(matcher.group(0));
+				log.info(matcher.group(0));
 				return matcher.group(0);
 			}
 		} catch (IllegalStateException e) {

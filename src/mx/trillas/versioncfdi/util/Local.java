@@ -4,16 +4,12 @@ import java.io.InputStream;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.log4j.Logger;
-
-import mx.trillas.versioncfdi.Principal;
-
 public class Local {
 
-	private static Logger log = Logger.getLogger(Local.class);
+//	private static Logger log = Logger.getLogger(Local.class);
 
 	private static final String NUMBER = "[0-9]+";
-	private static final String NUMBERVERSION_PATTERN = "Revision:\\s[0-9]+";
+	private static final String NUMBERVERSION_PATTERN = "(Revision|Revisión):\\s[0-9]+";
 
 	public static String getLocalNumberVersion(String command) throws Exception {
 
