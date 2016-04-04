@@ -50,9 +50,9 @@ public class Principal {
 		}
 
 		if (Util.timeIsValid()) {
-			log.info("El archivo es valido");
+			log.info("La fecha actual se encuentra dentro del periodo de verificacion");
 		} else {
-			log.error("El archivo es invalido");
+			log.error("La fecha actual NO se encuentra dentro del periodo de verificacion");
 		}
 
 		try {

@@ -184,7 +184,7 @@ public class Util {
 
 		Calendar fechaHoy = Calendar.getInstance();
 
-		log.info(ultimoMomentoDeValidez + " " + fechaHoy);
+		log.info("\nultimoMomentoDeValidez: " + ultimoMomentoDeValidez + " \nfechaHoy: " + fechaHoy);
 		
 		if (ultimoMomentoDeValidez.after(fechaHoy)) {
 			return true;
