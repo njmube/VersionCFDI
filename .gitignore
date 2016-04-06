@@ -12,3 +12,8 @@
 hs_err_pid*
 /bin/
 .classpath
+<<<<<<< HEAD
+=======
+/bin/
+log4j-application.log
+>>>>>>> origin/dev
