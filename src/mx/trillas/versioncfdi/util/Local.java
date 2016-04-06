@@ -43,7 +43,7 @@ public class Local {
 
 			byte[] buffer = new byte[1024];
 
-			for (int count = 0; (count = is.read(buffer)) >= 0;) {
+			for (; (is.read(buffer)) >= 0;) {
 				stringCommand = new String(buffer);
 			}
 		} catch (Exception e) {
