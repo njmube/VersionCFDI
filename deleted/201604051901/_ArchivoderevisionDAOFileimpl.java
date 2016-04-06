@@ -13,7 +13,7 @@ import java.util.Properties;
 import mx.trillas.versioncfdi.persistence.pojo.Archivoderevision;
 import mx.trillas.versioncfdi.versionDAO.ArchivoderevisionDAO;
 
-public class ArchivoderevisionDAOFileimpl implements ArchivoderevisionDAO {
+public class _ArchivoderevisionDAOFileimpl implements ArchivoderevisionDAO {
 	public static Path PATHREVISION = Paths.get("revision.properties");
 
 	public Archivoderevision get() throws Exception {
